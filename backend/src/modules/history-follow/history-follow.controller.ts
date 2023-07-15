@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { HistoryService } from './history-follow.service';
 
 @Controller('api/v1/histories')
@@ -6,8 +6,7 @@ export class HistoryController {
   constructor(private readonly historyService: HistoryService) {}
 
   @Get()
-  async getHistoriesByDeviceId() {
-    console.log('aaaaaaaaaaaa');
-    return this.historyService.getHistoriesByDeviceId({ userId: 1 });
+  async getHistoriesByDeviceId(@Req() req: any) {
+    return this.historyService.getHistoriesByDeviceId({ userId: req.user.id });
   }
 }
