@@ -15,6 +15,7 @@ const Header = () => {
     if (setUser && setIslogin) {
       setUser()
       setIslogin(false)
+      setopenMenu(!false)
     }
 
   }
