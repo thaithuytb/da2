@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
+//import Layout
+import Header from './layout/Header';
+import Map from './layout/Map';
+import History from './layout/History';
+
+//import Context
+import AuthProvider from './contexts/AuthContext';
+import SocketProvider from './contexts/SocketContext';
 
 function App() {
+  // return(<Header></Header>)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <SocketProvider>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Map />} />
+          <Route path="/history" element={<History />} />
+        </Routes>
+      </SocketProvider>
+    </AuthProvider>
   );
 }
 
