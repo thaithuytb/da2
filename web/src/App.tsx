@@ -9,8 +9,7 @@ import MapHistory from './layout/MapHistory';
 //import Context
 import AuthProvider from './contexts/AuthContext';
 import SocketProvider from './contexts/SocketContext';
-import { useEffect } from 'react';
-import { CoordinateAPI } from './api/coordinate';
+import History from './layout/History';
 
 
 function App() {
@@ -22,10 +21,13 @@ function App() {
         <div style={{ marginTop: '8vh' }}>
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route element={<ProtectedMain/>}>
+            <Route element={<ProtectedMain />}>
               <Route path="/home" element={<MapReal />} />
-              <Route path="/history" element={<MapHistory />} />
-            </Route>
+                <Route>
+                  <Route path="/history" element={<History />} />
+                  <Route path="/history/:id" element={<MapHistory />} />
+                </Route>
+              </Route>
           </Routes>
         </div>
       </SocketProvider>
