@@ -1,7 +1,9 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
+import ProtectedMain from './protectedRoute';
 //import Layout
 import Header from './layout/Header';
+import Login from './layout/Login';
 import Map from './layout/Map';
 import History from './layout/History';
 
@@ -15,10 +17,15 @@ function App() {
     <AuthProvider>
       <SocketProvider>
         <Header />
-        <Routes>
-          <Route path="/" element={<Map />} />
-          <Route path="/history" element={<History />} />
-        </Routes>
+        <div style={{ marginTop: '8vh' }}>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route element={<ProtectedMain></ProtectedMain>}>
+              <Route path="/home" element={<Map />} />
+              <Route path="/history" element={<History />} />
+            </Route>
+          </Routes>
+        </div>
       </SocketProvider>
     </AuthProvider>
   );

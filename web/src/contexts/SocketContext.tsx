@@ -12,23 +12,24 @@ export const SocketContext = createContext<ISocketContext | undefined>(undefined
 
 const SocketProvider: React.FC<PropsSocketContext> = ({ children }) => {
 
-    const socket = socketIOClient(
-        process.env.SERVER_WEB_SOCKET || "http://localhost:7000/da2"
-    );
+    // const socket = socketIOClient(
+    //     process.env.SERVER_WEB_SOCKET || "http://localhost:7000/da2"
+    // );
+    const socket =''
 
 
     //join Room
-    useEffect(() => {
+    // useEffect(() => {
 
-        const payload = { userId: 1 };
-        socket.emit("joinMap", payload);
+    //     const payload = { userId: 1 };
+    //     socket.emit("joinMap", payload);
 
-        //note return
-        return () => {
-            socket.disconnect();
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    //     //note return
+    //     return () => {
+    //         socket.disconnect();
+    //     };
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
     const data = { socket }
     return (

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../css/header.css';
 import { MenuOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
+
+  const [openMenu, setopenMenu] = useState<boolean>(false)
+
   return (
     <div className="header">
       <div className="header_left">
@@ -12,17 +16,18 @@ const Header = () => {
       </div>
 
       <div className="header_right">
-        <MenuOutlined />
-        <div className='header-menu'>
-          <h3>Adim</h3>
-          <ul>
-            <li>Map</li>
-            <li>Lich su</li>
-            <li>Thong ke</li>
-          </ul>
-          <h3>Dang xuat</h3>
-        </div>
+        <MenuOutlined onClick={() => setopenMenu(!openMenu)} />
       </div >
+
+      <div className={`header-menu ${!openMenu ? "hidden" : ''}`} >
+        <h3>Adim</h3>
+        <ul>
+          <li onClick={() => setopenMenu(!openMenu)} ><Link to={'/home'}>Map</Link></li>
+          <li onClick={() => setopenMenu(!openMenu)} ><Link to={'/history'}>Lich su</Link></li>
+          <li onClick={() => setopenMenu(!openMenu)} ><Link to={'/'}>Thong ke</Link></li>
+        </ul>
+        <h3>Dang xuat</h3>
+      </div>
     </div >
   )
 }
