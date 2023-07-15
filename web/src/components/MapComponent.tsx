@@ -1,20 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import maplibregl, { LngLatLike, Map } from "maplibre-gl";
 import '../css/map.css'
 import distance from '@turf/distance';
 import { point } from "@turf/helpers";
 import { CoordinateAPI } from "../api/coordinate";
-interface PropsMap {}
+interface PropsMap {
+  name: string
+}
 
-const MapComponent: React.FC<PropsMap> = () => {
+const MapComponent: React.FC<PropsMap> = ({name}) => {
+
+  const [dataCoordinates, setDataCoordinates] = useState<[]>([])
 
   const coordinateAPI = new CoordinateAPI();
 
   useEffect(() => {
     (async() => {
-      console.log(1111)
-      const getCoordinateAPI = await coordinateAPI.getCoordinates({name: 'device_1_test_1'})
-      console.log({getCoordinateAPI})
+        const respones = await coordinateAPI.getCoordinates({name: name})
+      if(respones.success) {
+        setDataCoordinates(respones.data.dataCoordinates)
+        console.log(respones);
+        
+      }
     })()
   }, [])
 
@@ -28,22 +35,20 @@ const MapComponent: React.FC<PropsMap> = () => {
       hash: "map",
     });
 
-    findPath(map);
+    if(dataCoordinates.length){
+      findPath(map)
+    }
     realcoordinates(map);
 
     return () => map.remove();
-  }, []);
-
+  }, [dataCoordinates]);
+  
+  
   function findPath(map: Map) {
     map.on("load", function () {
-      let coordinates = [
-        [105.84154, 21.00514],
-        [105.84148, 21.00514],
-        [105.84148, 21.00641],
-        [105.84148, 21.00707],
-        [105.84156, 21.0073],
-      ];
-
+      
+      let coordinates = [...dataCoordinates];
+      
       const start = coordinates[0];
       const end = coordinates[coordinates.length - 1]
       const startp = point(start);

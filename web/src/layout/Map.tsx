@@ -4,7 +4,7 @@ import MapComponent from '../components/MapComponent'
 const Map= () => {
   return (
     <div>
-      <MapComponent/>
+      <MapComponent name={'device_1_test_1'}/>
     </div>
   )
 }
