@@ -4,14 +4,14 @@ import ProtectedMain from './protectedRoute';
 //import Layout
 import Header from './layout/Header';
 import Login from './layout/Login';
-import Map from './layout/Map';
-import History from './layout/History';
-
+import MapReal from './layout/MapReal';
+import MapHistory from './layout/MapHistory';
 //import Context
 import AuthProvider from './contexts/AuthContext';
 import SocketProvider from './contexts/SocketContext';
 import { useEffect } from 'react';
 import { CoordinateAPI } from './api/coordinate';
+
 
 function App() {
   // return(<Header></Header>)
@@ -22,9 +22,9 @@ function App() {
         <div style={{ marginTop: '8vh' }}>
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route element={<ProtectedMain></ProtectedMain>}>
-              <Route path="/home" element={<Map />} />
-              <Route path="/history" element={<History />} />
+            <Route element={<ProtectedMain/>}>
+              <Route path="/home" element={<MapReal />} />
+              <Route path="/history" element={<MapHistory />} />
             </Route>
           </Routes>
         </div>

@@ -1,6 +1,6 @@
 #map{
-    width: 99%;
-    height: 600px;
+    width: 100%;
+    height: 92vh;
 }
 .maplibregl-ctrl-attrib{
     display: none;
@@ -18,7 +18,7 @@
     right: 20px;
     max-width: 320px;
     z-index: 1;
-    display: block;
+    display: none;
 }
 #if-length p{
     text-align: left;
