@@ -10,6 +10,8 @@ import History from './layout/History';
 //import Context
 import AuthProvider from './contexts/AuthContext';
 import SocketProvider from './contexts/SocketContext';
+import { useEffect } from 'react';
+import { CoordinateAPI } from './api/coordinate';
 
 function App() {
   // return(<Header></Header>)
