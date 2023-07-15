@@ -3,13 +3,16 @@ import '../css/login.css'
 import { Button, Form, Input } from 'antd';
 import { AuthAPI } from '../api/user';
 import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
   const authContext = useContext(AuthContext)
   const setUser = authContext?.setUser
+  const setIslogin = authContext?.setIslogin
   const [checkDisplay, setCheckDisplay] = useState<boolean>(true)
   const authAPI = new AuthAPI()
+  const navigate = useNavigate()
 
   const login = async (value: any) => {
     const { loginEmail, loginPassword } = value
@@ -19,11 +22,12 @@ const Login = () => {
         password: loginPassword
       }
       const res = await authAPI.login(dto)
-      if (res.data && setUser) {
+      if (res.data && setUser && setIslogin) {
         const { user, token } = res.data;
         localStorage.setItem('token', token);
-        console.log(user)
-        // setUser(user)
+        setUser(user)
+        setIslogin(true)
+        navigate('/home')
       }
     } catch (error) {
       console.log(error)

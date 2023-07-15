@@ -3,7 +3,7 @@ import queryString from "query-string";
 
 const axiosClient = axios.create(
     {
-        baseURL: process.env.SERVER_URL_API || 'http://192.168.0.104:7000/api/v1',
+        baseURL: process.env.SERVER_URL_API || 'http://192.168.0.105:5005/api/v1',
         headers: {
             "Content-Type": "application/json",
         },
