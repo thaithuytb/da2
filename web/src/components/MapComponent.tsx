@@ -38,16 +38,13 @@ const MapComponent: React.FC<PropsMap> = (
     });
 
     // if(dataCoordinates.length){
-    //   //findPath(map)
+    //   findPath(map)
     // }
     realcoordinates(map);
     realTime(map);
 
     return () => map.remove();
   }, [dataCoordinates]);
-  
-  
-  
 
   
   return (
