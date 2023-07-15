@@ -11,6 +11,7 @@ interface PropsMap {
   heartAverage?: string
   realcoordinates?: any
   realTime?: any
+  findPath?: any
 }
 
 
@@ -21,7 +22,8 @@ const MapComponent: React.FC<PropsMap> = (
     duration,
     heartAverage,
     realcoordinates,
-    realTime
+    realTime,
+    findPath
   }
   ) => {
 
@@ -37,11 +39,11 @@ const MapComponent: React.FC<PropsMap> = (
       hash: "map",
     });
 
-    // if(dataCoordinates.length){
-    //   findPath(map)
-    // }
-    realcoordinates(map);
-    realTime(map);
+    if(dataCoordinates && findPath){
+      findPath(map)
+    }
+    // realcoordinates(map);
+    // realTime(map);
 
     return () => map.remove();
   }, [dataCoordinates]);

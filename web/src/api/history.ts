@@ -1,6 +1,6 @@
 import axiosClient from "./api";
 
-export interface ApiResponse {
+interface ApiResponse {
     success: boolean;
     data: any;
     message?: string;
