@@ -31,7 +31,7 @@ const SocketProvider: React.FC<PropsSocketContext> = ({ children }) => {
     //     // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, []);
 
-    const data = { socket }
+    const data = {  }
     return (
         <SocketContext.Provider value={data}>
             {children}

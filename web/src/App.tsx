@@ -10,8 +10,18 @@ import History from './layout/History';
 //import Context
 import AuthProvider from './contexts/AuthContext';
 import SocketProvider from './contexts/SocketContext';
+import { useEffect } from 'react';
+import { CoordinateAPI } from './api/coordinate';
 
 function App() {
+  useEffect(() => {
+    (async() => {
+      console.log(1111)
+      const coordinateAPI = new CoordinateAPI();
+      const getCoordinateAPI = await coordinateAPI.getCoordinates({name: 'device_1_test_1'})
+      console.log({getCoordinateAPI})
+    })()
+  }, [])
   // return(<Header></Header>)
   return (
     <AuthProvider>
