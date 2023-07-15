@@ -4,11 +4,13 @@ import { Prisma } from '@prisma/client';
 import { responseSuccess } from '../../common/response-success';
 import * as dayjs from 'dayjs';
 import { SocketGateway } from '../../socket/socket.gateway';
+import { PublicMqttService } from '../../mqtt/publish';
 
 @Injectable()
 export class CoordinateService {
   constructor(
     private readonly coordinateRepository: CoordinateRepository,
+    private readonly publicMqttService: PublicMqttService,
     private readonly socketGateway: SocketGateway,
   ) {}
 
@@ -73,5 +75,22 @@ export class CoordinateService {
         },
       });
     }, 10000);
+  }
+
+  async startData(dto: { deviceId: number; start: boolean }) {
+    this.publicMqttService.sendMessage('datn/quan/start', JSON.stringify(dto));
+    return true;
+  }
+
+  async data(dto: {
+    deviceId: number;
+    lat: number;
+    lon: number;
+    step: number;
+    heartRate: number;
+    period: number;
+  }) {
+    this.publicMqttService.sendMessage('datn/quan/data', JSON.stringify(dto));
+    return true;
   }
 }

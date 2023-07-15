@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CoordinateService } from './coordinate.service';
 
 @Controller('api/v1/coordinates')
@@ -16,5 +16,25 @@ export class CoordinateController {
   @Get('/fake-data')
   async createDataTest() {
     return this.coordinateService.createDataTest();
+  }
+
+  @Post('/start')
+  async startEndData(@Body('dto') dto: { deviceId: number; start: boolean }) {
+    return this.coordinateService.startData(dto);
+  }
+
+  @Post('/data')
+  async data(
+    @Body('dto')
+    dto: {
+      deviceId: number;
+      lat: number;
+      lon: number;
+      step: number;
+      heartRate: number;
+      period: number;
+    },
+  ) {
+    return this.coordinateService.data(dto);
   }
 }

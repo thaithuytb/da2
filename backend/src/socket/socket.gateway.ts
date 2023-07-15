@@ -23,6 +23,7 @@ export class SocketGateway {
   }
 
   emitSocketToUser(userId: string, eventName: string, eventData: any) {
+    console.log({ userId, eventName, eventData });
     this.server.to(userId).emit(eventName, eventData);
   }
 }
