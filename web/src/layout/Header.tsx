@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../css/header.css';
 import { MenuOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
 
 const Header = () => {
 
   const [openMenu, setopenMenu] = useState<boolean>(false)
+  const authContext = useContext(AuthContext)
+  const setUser = authContext?.setUser
+  const setIslogin = authContext?.setIslogin
+  const isLogin = authContext?.islogin
+  const logout = () => {
+    if (setUser && setIslogin) {
+      setUser()
+      setIslogin(false)
+    }
+
+  }
 
   return (
     <div className="header">
@@ -16,7 +28,9 @@ const Header = () => {
       </div>
 
       <div className="header_right">
-        <MenuOutlined onClick={() => setopenMenu(!openMenu)} />
+        {isLogin &&
+          <MenuOutlined onClick={() => setopenMenu(!openMenu)} />
+        }
       </div >
 
       <div className={`header-menu ${!openMenu ? "hidden" : ''}`} >
@@ -26,7 +40,7 @@ const Header = () => {
           <li onClick={() => setopenMenu(!openMenu)} ><Link to={'/history'}>Lich su</Link></li>
           <li onClick={() => setopenMenu(!openMenu)} ><Link to={'/'}>Thong ke</Link></li>
         </ul>
-        <h3>Dang xuat</h3>
+        <h3 onClick={logout}>Dang xuat</h3>
       </div>
     </div >
   )

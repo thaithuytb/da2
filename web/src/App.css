@@ -2,3 +2,11 @@ html {
     font-size: 14px;
     box-sizing: border-box;
 }
+
+:where(.css-dev-only-do-not-override-1m62vyb).ant-form .ant-form-item {
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+.ant-form .ant-form-item .ant-form-item-label, :where(.css-dev-only-do-not-override-1m62vyb).ant-form .ant-form-item .ant-form-item-control {
+    padding: 0;
+}

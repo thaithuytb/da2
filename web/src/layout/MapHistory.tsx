@@ -151,6 +151,7 @@ const MapHistory = () => {
         lengthStreet={lengthStreet}
         duration={duration}
         heartAverage={heartAverage}
+        findPath={findPath}
       />
     </div>
   )

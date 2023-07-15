@@ -3,7 +3,7 @@ import queryString from "query-string";
 
 const axiosClient = axios.create(
     {
-        baseURL: process.env.SERVER_URL_API || 'http://192.168.0.105:5005/api/v1',
+        baseURL: process.env.SERVER_URL_API || 'http://192.168.0.104:7000/api/v1',
         headers: {
             "Content-Type": "application/json",
         },
@@ -12,10 +12,10 @@ const axiosClient = axios.create(
 )
 
 axiosClient.interceptors.request.use(async (config) => {
-    // const token = localStorage.getItem(LOCAL_STORAGE_TOKEN);
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   });   
 
