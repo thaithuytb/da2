@@ -5,8 +5,8 @@ import { subscribeMqtt } from './mqtt/subscribe';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(5005);
   app.enableCors();
+  await app.listen(process.env.PORT);
 
   const socketGateway = app.get(SocketGateway);
 
