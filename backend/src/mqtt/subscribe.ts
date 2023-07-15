@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
 import * as mqtt from 'mqtt';
-import { uuid } from 'uuidv4';
 import { SocketGateway } from '../socket/socket.gateway';
 
 export async function subscribeMqtt(socketGateway: SocketGateway) {
@@ -31,14 +29,14 @@ export async function subscribeMqtt(socketGateway: SocketGateway) {
     if (topic === 'datn/quan/start') {
       //handle Logic
       if (parseMessage['start']) {
-        socketGateway.emitToGarden(
+        socketGateway.emitSocketToUser(
           parseMessage['userId'].toString(),
           'start',
           parseMessage,
         );
         return;
       }
-      socketGateway.emitToGarden(
+      socketGateway.emitSocketToUser(
         parseMessage['userId'].toString(),
         'end',
         parseMessage,
@@ -48,7 +46,7 @@ export async function subscribeMqtt(socketGateway: SocketGateway) {
 
     if (topic === 'datn/quan/data') {
       //handle logic here
-      socketGateway.emitToGarden(
+      socketGateway.emitSocketToUser(
         parseMessage['userId'].toString(),
         'data',
         parseMessage,

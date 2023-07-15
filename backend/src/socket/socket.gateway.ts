@@ -22,7 +22,7 @@ export class SocketGateway {
     this.server.socketsJoin(data.userId.toString());
   }
 
-  emitToGarden(userId: string, eventName: string, eventData: any) {
+  emitSocketToUser(userId: string, eventName: string, eventData: any) {
     this.server.to(userId).emit(eventName, eventData);
   }
 }

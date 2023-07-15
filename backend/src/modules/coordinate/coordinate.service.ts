@@ -49,19 +49,19 @@ export class CoordinateService {
   }
 
   async createDataTest() {
-    this.socketGateway.emitToGarden('1', 'start', {});
+    this.socketGateway.emitSocketToUser('1', 'start', {});
     let count = 0;
     let lat = 90;
     let lon = 25;
     const intervalId = setInterval(() => {
       ++count;
       if (count === 30) {
-        this.socketGateway.emitToGarden('1', 'end', {});
+        this.socketGateway.emitSocketToUser('1', 'end', {});
         clearInterval(intervalId);
       }
       lat = lat + Math.random() / (10 * count);
       lon = lon + Math.random() / (10 * count);
-      this.socketGateway.emitToGarden('1', 'data', {
+      this.socketGateway.emitSocketToUser('1', 'data', {
         type: 'Feature',
         geometry: {
           coordinates: [lat, lon],
