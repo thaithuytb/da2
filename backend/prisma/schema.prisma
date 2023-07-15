@@ -29,7 +29,7 @@ model User {
   dateOfBirth DateTime? @map("date_of_birth")
   isDeleted   Boolean   @default(false)
   device      Device?   @relation(fields: [deviceId], references: [id])
-  deviceId    Int       @unique
+  deviceId    Int?      @unique
 
   @@map("users")
 }

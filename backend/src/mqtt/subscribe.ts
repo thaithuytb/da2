@@ -63,7 +63,18 @@ export async function subscribeMqtt(socketGateway: SocketGateway) {
         return console.log('ERROR: ParseInt start');
       }
       //handle logic here
-      socketGateway.emitSocketToUser('1', 'data', parseMessage);
+      socketGateway.emitSocketToUser('1', 'data', {
+        type: 'Feature',
+        geometry: {
+          coordinates: [parseMessage['lat'], parseMessage['lon']],
+          type: 'Point',
+        },
+        properties: {
+          heartRate: parseMessage['heartRate'],
+          step: parseMessage['step'],
+          period: parseMessage['period'],
+        },
+      });
       const history = await findHistoryFollowByDeviceId(
         prisma,
         parseMessage['deviceId'],

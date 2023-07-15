@@ -13,7 +13,6 @@ export class HistoryService {
 
   async getHistoriesByDeviceId(dto: { userId: number }) {
     const device = await this.deviceRepository.getDeviceByUserId(dto.userId);
-    console.log({ device });
     const query: Prisma.HistoryFollowFindManyArgs = {
       where: {
         deviceId: device.id,
