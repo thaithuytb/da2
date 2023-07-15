@@ -12,4 +12,9 @@ export class CoordinateController {
     }
     return this.coordinateService.getCoordinatesByHistoryFollowName({ name });
   }
+
+  @Get('/fake-data')
+  async createDataTest() {
+    return this.coordinateService.createDataTest();
+  }
 }
