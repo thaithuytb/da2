@@ -1,0 +1,75 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Sample {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
+
+  @@map("samples")
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  phoneNumber String?   @map("phone_number")
+  email       String    @unique
+  password    String
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
+  address     String?
+  fullName    String    @map("full_name")
+  dateOfBirth DateTime? @map("date_of_birth")
+  isDeleted   Boolean   @default(false)
+  device      Device?   @relation(fields: [deviceId], references: [id])
+  deviceId    Int       @unique
+
+  @@map("users")
+}
+
+model Device {
+  id             Int             @id @default(autoincrement())
+  name           String          @unique
+  status         Boolean         @default(true)
+  createdAt      DateTime        @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt      DateTime        @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
+  isDeleted      Boolean         @default(false)
+  historyFollows HistoryFollow[]
+  User           User?
+
+  @@map("devices")
+}
+
+model HistoryFollow {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt   DateTime     @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
+  deviceId    Int          @map("device_id")
+  device      Device       @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  coordinates Coordinate[]
+
+  @@map("historyFollows")
+}
+
+model Coordinate {
+  id              Int           @id @default(autoincrement())
+  lat             Float
+  lon             Float
+  heartRate       Int           @map("heart_rate")
+  step            Int
+  period          Int
+  createdAt       DateTime      @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt       DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
+  historyFollowId Int
+  historyFollow   HistoryFollow @relation(fields: [historyFollowId], references: [id])
+
+  @@map("coordinates")
+}
