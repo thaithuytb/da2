@@ -42,7 +42,7 @@ model Device {
   updatedAt      DateTime        @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
   isDeleted      Boolean         @default(false)
   historyFollows HistoryFollow[]
-  User           User?
+  user           User?
 
   @@map("devices")
 }

@@ -23,6 +23,10 @@ export class CoordinateService {
     const coordinates =
       await this.coordinateRepository.getCoordinatesByHistoryFollowName(query);
 
+    if (!coordinates.length) {
+      return responseSuccess(200, []);
+    }
+
     return responseSuccess(200, {
       dataCoordinates: coordinates.map((coordinate) => [
         coordinate.lat,

@@ -7,8 +7,6 @@ export class CoordinateController {
 
   @Get()
   async getCoordinatesByHistoryFollowName(@Query('name') name: string) {
-    console.log('aaaa');
-    console.log({ name });
     if (!name) {
       return [];
     }
