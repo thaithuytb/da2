@@ -18,7 +18,7 @@ const SocketProvider: React.FC<PropsSocketContext> = ({ children }) => {
 
   //join Room
   useEffect(() => {
-    const socket = socketIOClient("http://localhost:4998/api/da2");
+    const socket = socketIOClient("http://localhost:4998/da2");
     setSocketClient(socket);
 
     const payload = { userId: 1 };
