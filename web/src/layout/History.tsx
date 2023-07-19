@@ -41,14 +41,18 @@ const History = () => {
   return (
     <div className='history'>
       <div>
-        <h4>Lich su theo doi: </h4>
+        <h4 style={{padding: ' 10px 0 0 10px'}}>Lịch sử theo dõi: </h4>
       </div>
       {listHistory.map((item: IListHistory, index: number) => {
         return (
-          <div key={index} className='history-item' onClick={() => detail(item)}>
-            <span>{item.name}</span>
-            <span>{item.createdAt}</span>
+          <div style={{display: 'flex', position:'relative', width:'100%'}}>
+            <div key={index} className='history-item' onClick={() => detail(item)}>
+              <span>{item.name}</span>
+              <span>{item.createdAt}</span>
+            </div>
+            <div id='circle'>1</div>
           </div>
+          
         )
       })}
     </div>

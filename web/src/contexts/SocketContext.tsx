@@ -18,7 +18,7 @@ const SocketProvider: React.FC<PropsSocketContext> = ({ children }) => {
     //join Room
     useEffect(() => {
         const socket = socketIOClient(
-            process.env.SERVER_WEB_SOCKET || "http://192.168.0.105:5005/da2"
+            process.env.SERVER_WEB_SOCKET || "https://apil.icu.vn/api/da2"
         );
         setSocketClient(socket)
 

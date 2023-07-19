@@ -4,6 +4,7 @@ import '../css/map.css'
 import distance from '@turf/distance';
 import { point } from "@turf/helpers";
 import { CoordinateAPI } from "../api/coordinate";
+
 interface PropsMap {
   dataCoordinates?: any[]
   lengthStreet?: string
@@ -46,7 +47,7 @@ const MapComponent: React.FC<PropsMap> = (
     if(realTime){
       realTime(map);
     }
-    //realcoordinates(map);
+    realcoordinates(map);
 
     return () => map.remove();
   }, [dataCoordinates]);
@@ -73,7 +74,6 @@ const MapComponent: React.FC<PropsMap> = (
                 'circle-color': 'red'
             }
         })
-
         return coordinate;
       });
     });
