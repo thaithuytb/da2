@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import maplibregl, { LngLatLike, Map } from "maplibre-gl";
 import '../css/map.css'
 import distance from '@turf/distance';
 import { point } from "@turf/helpers";
 import { CoordinateAPI } from "../api/coordinate";
+
 
 interface PropsMap {
   dataCoordinates?: any[]
@@ -25,6 +26,7 @@ const MapComponent: React.FC<PropsMap> = (
   }
   ) => {
 
+   
   const coordinateAPI = new CoordinateAPI();
 
   useEffect(() => {
@@ -47,7 +49,7 @@ const MapComponent: React.FC<PropsMap> = (
     if(realTime){
       realTime(map);
     }
-    realcoordinates(map);
+    //realcoordinates(map);
 
     return () => map.remove();
   }, [dataCoordinates]);
@@ -96,7 +98,7 @@ const MapComponent: React.FC<PropsMap> = (
   
   return (
     <div>
-      <div id="map" />
+      
     </div>
   );
 };

@@ -10,6 +10,7 @@ import History from './layout/History';
 //import Context
 import AuthProvider from './contexts/AuthContext';
 import SocketProvider from './contexts/SocketContext';
+import Chart from './layout/Chart';
 
 function App() {
   // return(<Header></Header>)
@@ -25,6 +26,7 @@ function App() {
                 <Route>
                   <Route path="/history" element={<History />} />
                   <Route path="/history/:id" element={<MapHistory />} />
+                  <Route path="/chart" element={<Chart />} />
                 </Route>
               </Route>
           </Routes>

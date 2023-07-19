@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import maplibregl, { LngLatLike, Map } from "maplibre-gl";
 import '../css/map.css'
 import distance from '@turf/distance';
@@ -8,6 +8,7 @@ import { useLocation } from "react-router";
 import MapComponent from "../components/MapComponent";
 import { CaretRightOutlined, CloseCircleOutlined,MessageOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { AuthContext } from "../contexts/AuthContext";
 
 interface Data {
   created: string;
@@ -24,6 +25,8 @@ const MapHistory = () => {
 
   const [lengthStreet, setLengthStreet] = useState<string | undefined>()
   const [heartAverage, setHeartAverage] = useState<string | undefined>()
+
+  const {isHeart, setIsHeart} = useContext(AuthContext)!; 
 
   const coordinateAPI = new CoordinateAPI();
 
@@ -56,6 +59,7 @@ const MapHistory = () => {
       const average = sum / heartRate.length;
       setHeartAverage(average.toFixed(0));
 
+      setIsHeart(heartRate);
       if (duration) {
         const durations = duration / 60;
         const roundedDuration = durations.toFixed(0);
@@ -149,15 +153,14 @@ const MapHistory = () => {
   }
   return (
     <div>
-      <div id="map" />
       {
-        isClosed1 ?<MessageOutlined id="icon-close1"  onClick={() => setIsClosed1(!isClosed1) } />:
+        isClosed1 ?<img src="../alert.png" alt="" style={{width: '30px'}} id="icon-close1"  onClick={() => setIsClosed1(!isClosed1) }/>:
         <CloseCircleOutlined id="icon-close1"  onClick={() => setIsClosed1(!isClosed1)} /> 
       }
       <div id='if-history' style={{ display: isClosed1 ? 'none' : 'block' }}>
         <div id="start">
           <b></b>
-          <p>Điểm bắt đầu</p>
+          <p>Điểm bắt đầu</p> 
         </div>
         <div id="end">
           <b></b>
