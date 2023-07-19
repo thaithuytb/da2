@@ -6,6 +6,7 @@ import { point } from "@turf/helpers";
 import MapComponent from "../components/MapComponent";
 import { SocketContext } from "../contexts/SocketContext";
 import { CloseCircleOutlined,MessageOutlined } from '@ant-design/icons';
+import { AuthContext } from "../contexts/AuthContext";
 
 interface Data {
   created: string;
@@ -157,12 +158,16 @@ const MapReal= () => {
       }
   }
 }
-  console.log(isClosed);
+
+  const {openMenu, setopenMenu} = useContext(AuthContext)!; 
+  const closenavbar = () =>{
+    setopenMenu(false);
+  }
   
   return (
     <div>
       {
-        isClosed ?<MessageOutlined id="icon-close1"  onClick={() => setIsClosed(!isClosed) } />:
+        isClosed ?<img src="../alert.png" alt="" style={{width: '30px'}} id="icon-close1"  onClick={() => setIsClosed(!isClosed) }/>:
         <CloseCircleOutlined id="icon-close1"  onClick={() => setIsClosed(!isClosed)} /> 
       }
       <div id='if-length' style={{ display: isClosed ? 'none' : 'block' }}>
@@ -179,6 +184,8 @@ const MapReal= () => {
         <p id='heart'>Nhịp tim: {heartRates} nhịp/phút</p>
         <p id='leg'>Số bước chân: {legStreet} bước</p>
       </div>
+      
+      <div id="map" onClick={closenavbar}/>
       <MapComponent 
         realTime={realTime}
         dataCoordinates={dataReal}

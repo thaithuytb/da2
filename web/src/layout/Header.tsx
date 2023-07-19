@@ -6,7 +6,7 @@ import { AuthContext } from '../contexts/AuthContext';
 
 const Header = () => {
 
-  const [openMenu, setopenMenu] = useState<boolean>(false)
+  const {openMenu, setopenMenu} = useContext(AuthContext)!; 
   const authContext = useContext(AuthContext)
   const setUser = authContext?.setUser
   const setIslogin = authContext?.setIslogin
@@ -22,19 +22,21 @@ const Header = () => {
 
   return (
     <div className="header">
-      <div className="header_left">
-        <img style={{ width: "30px", height: "auto", marginRight: "0.5rem" }}
-          src="https://upload.wikimedia.org/wikipedia/vi/thumb/e/ef/Logo_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_B%C3%A1ch_Khoa_H%C3%A0_N%E1%BB%99i.svg/1200px-Logo_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_B%C3%A1ch_Khoa_H%C3%A0_N%E1%BB%99i.svg.png" alt="" />
-        <h3>Đại học Bách Khoa Hà Nội</h3>
+      <div className="header_top">
+        <div className="header_left">
+          <img style={{ width: "30px", height: "auto", marginRight: "0.5rem" }}
+            src="https://upload.wikimedia.org/wikipedia/vi/thumb/e/ef/Logo_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_B%C3%A1ch_Khoa_H%C3%A0_N%E1%BB%99i.svg/1200px-Logo_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_B%C3%A1ch_Khoa_H%C3%A0_N%E1%BB%99i.svg.png" alt="" />
+          <h3>Đại học Bách Khoa Hà Nội</h3>
+        </div>
+
+        <div className="header_right">
+          {isLogin &&
+            <MenuOutlined onClick={() => setopenMenu(!openMenu)} />
+          }
+        </div >
       </div>
 
-      <div className="header_right">
-        {isLogin &&
-          <MenuOutlined onClick={() => setopenMenu(!openMenu)} />
-        }
-      </div >
-
-      <div className={`header-menu ${!openMenu ? "hidden" : ''}`} >
+      <div className='header-menu' style={{transform: openMenu ? 'none' : 'translateX(100%)',}}>
         <h3>Admin</h3>
         <ul>
           <li onClick={() => setopenMenu(!openMenu)} ><Link to={'/home'}>Map</Link></li>
