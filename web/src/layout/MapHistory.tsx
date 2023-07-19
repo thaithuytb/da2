@@ -6,12 +6,16 @@ import { point } from "@turf/helpers";
 import { CoordinateAPI } from "../api/coordinate";
 import { useLocation } from "react-router";
 import MapComponent from "../components/MapComponent";
+import { CaretRightOutlined, CloseCircleOutlined,MessageOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 interface Data {
   created: string;
   heartRate: number;
 }
 const MapHistory = () => {
+  const [isClosed1, setIsClosed1] = useState(true);
+  
   const location = useLocation()
   const { item } = location.state
   const [dataCoordinates, setDataCoordinates] = useState<[]>([])
@@ -146,6 +150,28 @@ const MapHistory = () => {
   return (
     <div>
       <div id="map" />
+      {
+        isClosed1 ?<MessageOutlined id="icon-close1"  onClick={() => setIsClosed1(!isClosed1) } />:
+        <CloseCircleOutlined id="icon-close1"  onClick={() => setIsClosed1(!isClosed1)} /> 
+      }
+      <div id='if-history' style={{ display: isClosed1 ? 'none' : 'block' }}>
+        <div id="start">
+          <b></b>
+          <p>Điểm bắt đầu</p>
+        </div>
+        <div id="end">
+          <b></b>
+          <p>Điểm kết thúc</p>
+        </div>
+        <p id='length_history'>Quãng đường di chuyển: {lengthStreet} m</p>
+        <p id='time_history'>Thời gian di chuyển: {duration} phút</p>
+        <Link to={'/chart'} id='heart_history'>
+          <div style={{display:'flex', width: '100%'}}>
+            <p>Nhịp tim: {heartAverage} nhịp/phút</p> 
+            <span id="tri"><CaretRightOutlined /></span>
+          </div>
+        </Link>
+      </div>
       <MapComponent
         dataCoordinates={dataCoordinates}
         lengthStreet={lengthStreet}

@@ -4,16 +4,15 @@ import '../css/map.css'
 import distance from '@turf/distance';
 import { point } from "@turf/helpers";
 import { CoordinateAPI } from "../api/coordinate";
+
 interface PropsMap {
   dataCoordinates?: any[]
   lengthStreet?: string
   duration?: number
   heartAverage?: string
-  realcoordinates?: any
   realTime?: any
   findPath?: any
 }
-
 
 const MapComponent: React.FC<PropsMap> = (
   {
@@ -21,7 +20,6 @@ const MapComponent: React.FC<PropsMap> = (
     lengthStreet,
     duration,
     heartAverage,
-    realcoordinates,
     realTime,
     findPath
   }
@@ -33,31 +31,72 @@ const MapComponent: React.FC<PropsMap> = (
     const map = new maplibregl.Map({
       container: "map",
       style:
-        "https://api.maptiler.com/maps/fefc1891-4e0d-4102-a51f-09768f839b85/style.json?key=S1qTEATai9KydkenOF6W",
+        "https://api.maptiler.com/maps/streets-v2/style.json?key=S1qTEATai9KydkenOF6W",
       center: [105.84513, 21.005532],
       zoom: 16,
       hash: "map",
+      pitch: 60,
+      maxPitch: 85,
+      antialias: true
     });
 
     if(dataCoordinates && findPath){
       findPath(map)
     }
-    // realcoordinates(map);
-    // realTime(map);
+
+    if(realTime){
+      realTime(map);
+    }
+    realcoordinates(map);
 
     return () => map.remove();
   }, [dataCoordinates]);
-
+  
+  function realcoordinates(map: Map) {
+    map.on("load", function () {
+      navigatorPosition(function (coordinates: number[]) {
+        const coordinate = coordinates as LngLatLike
+        map.setCenter(coordinate);
+        map.addSource('circle',{
+          type:'geojson',
+          data:{
+            type: 'Point',
+            coordinates: coordinates
+          }
+        })
+        map.addLayer({
+            'id':'circle-layer1',
+            'type':'circle',
+            'source':'circle',
+            'paint':{
+                'circle-radius':7,
+                'circle-opacity':1,
+                'circle-color': 'red'
+            }
+        })
+        return coordinate;
+      });
+    });
+   
+  
+    function navigatorPosition(callback: (coordinates: number[]) => void): void {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          const lng: number = position.coords.longitude;
+          const lat: number = position.coords.latitude;
+    
+          const coordinates: number[] = [lng, lat];
+          callback(coordinates);
+        });
+      } else {
+        console.log("Geolocation không được hỗ trợ trong trình duyệt này");
+      }
+    }
+  }
   
   return (
     <div>
       <div id="map" />
-      <div id='if-length'>
-        <p id='length_street'>Quãng đường di chuyển: {lengthStreet} m</p>
-        <p id='time_street'>Thời gian di chuyển: {duration} phút</p>
-        <p id='heart'>Nhịp tim: {heartAverage} nhịp/phút</p>
-        <button id='ok_length'>Ok</button>
-      </div>
     </div>
   );
 };

@@ -6,11 +6,10 @@ import Header from './layout/Header';
 import Login from './layout/Login';
 import MapReal from './layout/MapReal';
 import MapHistory from './layout/MapHistory';
+import History from './layout/History';
 //import Context
 import AuthProvider from './contexts/AuthContext';
 import SocketProvider from './contexts/SocketContext';
-import History from './layout/History';
-
 
 function App() {
   // return(<Header></Header>)
