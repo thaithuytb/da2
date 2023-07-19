@@ -18,17 +18,19 @@ const SocketProvider: React.FC<PropsSocketContext> = ({ children }) => {
 
   //join Room
   useEffect(() => {
-    const socket = socketIOClient("http://localhost:4998/da2");
-    setSocketClient(socket);
+    if (process.env.SERVER_WEB_SOCKET) {
+      const socket = socketIOClient(process.env.SERVER_WEB_SOCKET);
+      setSocketClient(socket);
 
-    const payload = { userId: 1 };
-    socket.emit("joinUser", payload);
+      const payload = { userId: 1 };
+      socket.emit("joinUser", payload);
 
-    //note return
-    return () => {
-      socket.disconnect();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      //note return
+      return () => {
+        socket.disconnect();
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
   }, []);
 
   const data = { socketClient };
