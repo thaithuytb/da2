@@ -41,7 +41,7 @@ const History = () => {
   return (
     <div className='history'>
       <div>
-        <h4 style={{padding: ' 10px 0 0 10px'}}>Lịch sử theo dõi: </h4>
+        <h4 style={{padding: '0px 0 0 10px'}}>Lịch sử theo dõi: </h4>
       </div>
       {listHistory.map((item: IListHistory, index: number) => {
         return (
@@ -50,7 +50,7 @@ const History = () => {
               <span>{item.name}</span>
               <span>{item.createdAt}</span>
             </div>
-            <div id='circle'>1</div>
+            <div id='circle'>{index+1}</div>
           </div>
           
         )

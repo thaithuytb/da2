@@ -11,6 +11,7 @@ import History from './layout/History';
 import AuthProvider from './contexts/AuthContext';
 import SocketProvider from './contexts/SocketContext';
 import Chart from './layout/Chart';
+import Information from './layout/Information';
 
 function App() {
   // return(<Header></Header>)
@@ -18,7 +19,7 @@ function App() {
     <AuthProvider>
       <SocketProvider>
         <Header />
-        <div style={{ marginTop: '8vh' }}>
+        {/* <div style={{ marginTop: '8vh' }}> */}
           <Routes>
             <Route path="/" element={<Login />} />
             <Route element={<ProtectedMain />}>
@@ -27,10 +28,11 @@ function App() {
                   <Route path="/history" element={<History />} />
                   <Route path="/history/:id" element={<MapHistory />} />
                   <Route path="/chart" element={<Chart />} />
+                  <Route path="/information" element={<Information />} />
                 </Route>
               </Route>
           </Routes>
-        </div>
+        {/* </div> */}
       </SocketProvider>
     </AuthProvider>
   );

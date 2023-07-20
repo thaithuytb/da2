@@ -159,11 +159,6 @@ const MapReal= () => {
   }
 }
 
-  const {openMenu, setopenMenu} = useContext(AuthContext)!; 
-  const closenavbar = () =>{
-    setopenMenu(false);
-  }
-  
   return (
     <div>
       {
@@ -184,8 +179,7 @@ const MapReal= () => {
         <p id='heart'>Nhịp tim: {heartRates} nhịp/phút</p>
         <p id='leg'>Số bước chân: {legStreet} bước</p>
       </div>
-      
-      <div id="map" onClick={closenavbar}/>
+
       <MapComponent 
         realTime={realTime}
         dataCoordinates={dataReal}

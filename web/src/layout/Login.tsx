@@ -84,9 +84,9 @@ const Login = () => {
               </Button>
             </Form.Item>
           </Form>
-          <div>
-            Chưa có tài khản ?{" "}
-            <span onClick={() => setCheckDisplay(!checkDisplay)}>Đăng ký</span>
+          <div style={{textAlign:'center'}}>
+            Chưa có tài khoản ?{" "}
+            <span style={{color:'blue'}} onClick={() => setCheckDisplay(!checkDisplay)}>Đăng ký</span>
           </div>
         </div>
       ) : (
@@ -136,9 +136,9 @@ const Login = () => {
               </Button>
             </Form.Item>
           </Form>
-          <div>
+          <div style={{textAlign:'center'}}>
             Đã có tài khoản ?{" "}
-            <span onClick={() => setCheckDisplay(!checkDisplay)}>
+            <span style={{color:'blue'}} onClick={() => setCheckDisplay(!checkDisplay)}>
               Đăng nhập
             </span>
           </div>

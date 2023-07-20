@@ -98,7 +98,7 @@ const MapComponent: React.FC<PropsMap> = (
   
   return (
     <div>
-      
+      <div id="map"/>
     </div>
   );
 };
