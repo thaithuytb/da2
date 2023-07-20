@@ -18,7 +18,7 @@ const SocketProvider: React.FC<PropsSocketContext> = ({ children }) => {
 
   //join Room
   useEffect(() => {
-    if () {
+    if (1) {
       const socket = socketIOClient();
       setSocketClient(socket);
 
