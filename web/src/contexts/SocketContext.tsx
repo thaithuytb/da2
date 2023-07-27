@@ -18,8 +18,8 @@ const SocketProvider: React.FC<PropsSocketContext> = ({ children }) => {
 
   //join Room
   useEffect(() => {
-    if (1) {
-      const socket = socketIOClient();
+    if (process.env.REACT_APP_SERVER_WEB_SOCKET) {
+      const socket = socketIOClient(process.env.REACT_APP_SERVER_WEB_SOCKET);
       setSocketClient(socket);
 
       const payload = { userId: 1 };
