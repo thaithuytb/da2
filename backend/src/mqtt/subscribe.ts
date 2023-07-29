@@ -1,6 +1,6 @@
 import * as mqtt from 'mqtt';
 import { SocketGateway } from '../socket/socket.gateway';
-import { PrismaClient, Device } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 
 export async function subscribeMqtt(socketGateway: SocketGateway) {

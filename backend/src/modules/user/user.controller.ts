@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Req } from '@nestjs/common';
 import { UserService } from './user.service';
-import { LoginDto, RegisterDto } from './dto/user.dto';
-import { LoginType } from './models/user.model';
+import { LoginDto, RegisterDto, UpdateInformationDto } from './dto/user.dto';
+import { LoginType, UserType } from './models/user.model';
 import { responseSuccess } from '../../common/response-success';
 
 @Controller('api/v1/user')
@@ -28,5 +28,13 @@ export class UserController {
   @Post('/register')
   async register(@Body('dto') dto: RegisterDto): Promise<LoginType> {
     return this.userService.register(dto);
+  }
+
+  @Patch('/update-information')
+  async updateInformation(
+    @Req() req: any,
+    @Body('dto') dto: UpdateInformationDto,
+  ): Promise<UserType> {
+    return this.userService.updateInformation(req.user, dto);
   }
 }

@@ -4,9 +4,9 @@ import * as argon2 from 'argon2';
 import { uuid } from 'uuidv4';
 import { Prisma, User } from '@prisma/client';
 import { UserRepository } from '../../repositories/user.repository';
-import { LoginDto, RegisterDto } from './dto/user.dto';
+import { LoginDto, RegisterDto, UpdateInformationDto } from './dto/user.dto';
 import { responseSuccess } from '../../common/response-success';
-import { UserResponseDetail, LoginType } from './models/user.model';
+import { UserResponseDetail, LoginType, UserType } from './models/user.model';
 
 @Injectable()
 export class UserService {
@@ -70,6 +70,39 @@ export class UserService {
       user: UserResponseDetail.transform(newUser),
       token,
     });
+  }
+
+  async updateInformation(
+    user: User,
+    dto: UpdateInformationDto,
+  ): Promise<UserType> {
+    const { password, newPassword, ...restDto } = dto;
+    if (password && newPassword) {
+      const correctPassword = await argon2.verify(user.password, password);
+      if (!correctPassword) {
+        throw new HttpException('wrong password', HttpStatus.BAD_REQUEST);
+      }
+      const hashedPassword = await argon2.hash(newPassword);
+
+      const newUser = await this.userRepository.updateInformation({
+        where: {
+          id: user.id,
+        },
+        data: {
+          password: hashedPassword,
+        },
+      });
+
+      return responseSuccess(200, UserResponseDetail.transform(newUser));
+    }
+    const newUser = await this.userRepository.updateInformation({
+      where: {
+        id: user.id,
+      },
+      data: restDto,
+    });
+
+    return responseSuccess(200, UserResponseDetail.transform(newUser));
   }
 
   async getUserByEmail(email: string): Promise<User> {

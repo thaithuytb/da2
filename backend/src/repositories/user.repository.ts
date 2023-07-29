@@ -15,6 +15,10 @@ export class UserRepository implements IUserRepository {
       data: arg,
     });
   }
+
+  async updateInformation(arg: Prisma.UserUpdateArgs): Promise<User> {
+    return this.prisma.user.update(arg);
+  }
 }
 
 export interface IUserRepository {

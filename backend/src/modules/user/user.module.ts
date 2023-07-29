@@ -2,6 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { RepositoryModule } from '../../repositories/repository.module';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
+import { verifyTokenMiddleware } from '../../middlewares/decode-token';
 
 @Module({
   imports: [RepositoryModule],
@@ -10,6 +11,9 @@ import { UserController } from './user.controller';
   exports: [UserService],
 })
 export class UserModule implements NestModule {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-  configure(consumer: MiddlewareConsumer) {}
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(verifyTokenMiddleware)
+      .forRoutes('api/v1/user/update-information');
+  }
 }

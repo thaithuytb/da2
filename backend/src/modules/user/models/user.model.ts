@@ -12,6 +12,12 @@ export interface Login {
   token: string;
 }
 
+export interface UserType {
+  statusCode: number;
+  success: boolean;
+  data: IUserResponseDetail;
+}
+
 export class UserResponseDetail {
   static transform(dto: User): IUserResponseDetail {
     return {

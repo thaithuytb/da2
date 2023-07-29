@@ -1,6 +1,8 @@
 import {
   IsEmail,
+  IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
   MinLength,
   registerDecorator,
@@ -58,4 +60,26 @@ export class RegisterDto {
 
   @IsString()
   fullName: string;
+}
+
+export class UpdateInformationDto {
+  @IsOptional()
+  @IsString()
+  fullName?: string;
+
+  @IsOptional()
+  @IsString()
+  phoneNumber?: string;
+
+  @IsOptional()
+  @IsString()
+  address?: string;
+
+  @IsOptional()
+  @IsString()
+  password?: string;
+
+  @IsOptional()
+  @IsString()
+  newPassword?: string;
 }
