@@ -13,6 +13,22 @@ export class AuthAPI {
     return axiosClient.post(url, { dto: { ...dto } }) as unknown as ApiResponse;
   }
 
+  autoLogin() {
+    const url = `user/verify-token`;
+    return axiosClient.get(url) as unknown as ApiResponse;
+  }
+
+  UpdateInformation(dto:{
+      password?: string,
+      newPassword?: string,
+      fullName?:string,
+      phoneNumber?: string,
+      address?:string
+  }) {
+    const url = `user/update-information`;
+    return axiosClient.patch(url, {dto:{...dto}}) as unknown as ApiResponse;
+  }
+
   register(dto: {
     email: string;
     password: string;

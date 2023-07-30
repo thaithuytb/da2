@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import maplibregl, { LngLatLike, Map } from "maplibre-gl";
+import React, { useEffect, useState } from "react";
+import maplibregl, { Map } from "maplibre-gl";
 import '../css/map.css'
 import distance from '@turf/distance';
 import { point } from "@turf/helpers";
 import { CoordinateAPI } from "../api/coordinate";
 import { useLocation } from "react-router";
 import MapComponent from "../components/MapComponent";
-import { CaretRightOutlined, CloseCircleOutlined,MessageOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import { AuthContext } from "../contexts/AuthContext";
+import { CaretRightOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 interface Data {
   created: string;
@@ -16,7 +15,7 @@ interface Data {
 }
 const MapHistory = () => {
   const [isClosed1, setIsClosed1] = useState(true);
-  
+
   const location = useLocation()
   const { item } = location.state
   const [dataCoordinates, setDataCoordinates] = useState<[]>([])
@@ -25,10 +24,13 @@ const MapHistory = () => {
 
   const [lengthStreet, setLengthStreet] = useState<string | undefined>()
   const [heartAverage, setHeartAverage] = useState<string | undefined>()
-
-  const {isHeart, setIsHeart} = useContext(AuthContext)!; 
+  const [data, setData] = useState<any>()
 
   const coordinateAPI = new CoordinateAPI();
+  const navigate = useNavigate()
+  const clickNavigate = () => {
+    navigate('/chart', {state : {data: data}})
+  }
 
   useEffect(() => {
     (async () => {
@@ -37,8 +39,13 @@ const MapHistory = () => {
         setDataCoordinates(respones.data.dataCoordinates)
         setHeartRate(respones.data.heartRate)
         setDuration(respones.data.duration)
+        setData({
+          history: item.name,
+          data: respones.data
+        })
       }
     })()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function findPath(map: Map) {
@@ -59,7 +66,6 @@ const MapHistory = () => {
       const average = sum / heartRate.length;
       setHeartAverage(average.toFixed(0));
 
-      setIsHeart(heartRate);
       if (duration) {
         const durations = duration / 60;
         const roundedDuration = durations.toFixed(0);
@@ -154,13 +160,13 @@ const MapHistory = () => {
   return (
     <div>
       {
-        isClosed1 ?<img src="../alert.png" alt="" style={{width: '30px'}} id="icon-close1"  onClick={() => setIsClosed1(!isClosed1) }/>:
-        <CloseCircleOutlined id="icon-close1"  onClick={() => setIsClosed1(!isClosed1)} /> 
+        !isClosed1 ? <img src="../alert.png" alt="" style={{ width: '30px' }} id="icon-close1" onClick={() => setIsClosed1(!isClosed1)} /> :
+          <CloseCircleOutlined id="icon-close1" onClick={() => setIsClosed1(!isClosed1)} />
       }
-      <div id='if-history' style={{ display: isClosed1 ? 'none' : 'block' }}>
+      <div id='if-history' style={{ display: !isClosed1 ? 'none' : 'block' }}>
         <div id="start">
           <b></b>
-          <p>Điểm bắt đầu</p> 
+          <p>Điểm bắt đầu</p>
         </div>
         <div id="end">
           <b></b>
@@ -168,12 +174,12 @@ const MapHistory = () => {
         </div>
         <p id='length_history'>Quãng đường di chuyển: {lengthStreet} m</p>
         <p id='time_history'>Thời gian di chuyển: {duration} phút</p>
-        <Link to={'/chart'} id='heart_history'>
-          <div style={{display:'flex', width: '100%'}}>
-            <p>Nhịp tim: {heartAverage} nhịp/phút</p> 
+        <div id='heart_history' onClick={() => clickNavigate()}>
+          <div style={{ display: 'flex' }}>
+            <span>Nhịp tim trung bình: {heartAverage} nhịp/phút</span>
             <span id="tri"><CaretRightOutlined /></span>
           </div>
-        </Link>
+        </div>
       </div>
       <MapComponent
         dataCoordinates={dataCoordinates}

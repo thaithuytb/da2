@@ -19,7 +19,6 @@ const History = () => {
   const [listHistory, setListHistory] = useState<IListHistory[] | []>([])
 
   const detail = (item: IListHistory) => {
-    console.log(item)
     navigate(`/history/${item.id}`, {state: {item: item}})
   }
 
@@ -27,7 +26,6 @@ const History = () => {
     (async () => {
       const response = await historyAPI.getHistories()
       if(response.success){
-        console.log(response.data.histories)
         const newData = response.data.histories.map((item: IListHistory) => ({
           ...item,
           createdAt: dayjs(item.createdAt).format("DD-MM-YYYY")
@@ -41,12 +39,12 @@ const History = () => {
   return (
     <div className='history'>
       <div>
-        <h4 style={{padding: '0px 0 0 10px'}}>Lịch sử theo dõi: </h4>
+        <h4 style={{padding: '0px 0 0 10px'}}>Lịch sử di chuyển: </h4>
       </div>
       {listHistory.map((item: IListHistory, index: number) => {
         return (
-          <div style={{display: 'flex', position:'relative', width:'100%'}}>
-            <div key={index} className='history-item' onClick={() => detail(item)}>
+          <div  key={index} style={{display: 'flex', position:'relative', width:'100%'}}>
+            <div className='history-item' onClick={() => detail(item)}>
               <span>{item.name}</span>
               <span>{item.createdAt}</span>
             </div>

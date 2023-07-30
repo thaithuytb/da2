@@ -12,6 +12,7 @@ import AuthProvider from './contexts/AuthContext';
 import SocketProvider from './contexts/SocketContext';
 import Chart from './layout/Chart';
 import Information from './layout/Information';
+import ChangePassword from './layout/ChangePassword';
 
 function App() {
   // return(<Header></Header>)
@@ -29,6 +30,7 @@ function App() {
                   <Route path="/history/:id" element={<MapHistory />} />
                   <Route path="/chart" element={<Chart />} />
                   <Route path="/information" element={<Information />} />
+                  <Route path="/change-password" element={<ChangePassword />} />
                 </Route>
               </Route>
           </Routes>
