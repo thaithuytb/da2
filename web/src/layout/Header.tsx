@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext } from 'react';
 import '../css/header.css';
 import { MenuOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { AuthContext } from '../contexts/AuthContext';
 
 const Header = () => {
 
-  const {openMenu, setopenMenu} = useContext(AuthContext)!; 
+  const { openMenu, setopenMenu } = useContext(AuthContext)!;
   const authContext = useContext(AuthContext)
   const setUser = authContext?.setUser
   const setIslogin = authContext?.setIslogin
@@ -34,13 +34,14 @@ const Header = () => {
         </div >
       </div>
       {isLogin &&
-        <div className='header_menu' style={{display: openMenu ? 'block' : 'none'}}>
+        <div className='header_menu' style={{ display: openMenu ? 'block' : 'none' }}>
           <h3>Admin</h3>
           <ul>
-            <li onClick={() => setopenMenu(!openMenu)} ><Link to={'/home'}>Map</Link></li>
-            <li onClick={() => setopenMenu(!openMenu)} ><Link to={'/history'}>Lịch sử</Link></li>
-            <li onClick={() => setopenMenu(!openMenu)} ><Link to={'/'}>Thống kê</Link></li>
-            <li onClick={() => setopenMenu(!openMenu)} ><Link to={'/information'}>Thông tin cá nhân</Link></li>
+            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/home'}>Map</Link></li>
+            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/history'}>Lịch sử</Link></li>
+            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/chart'}>Thống kê</Link></li>
+            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/information'}>Thông tin cá nhân</Link></li>
+            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/change-password'}>Đổi mật khẩu</Link></li>
           </ul>
           <h3 onClick={logout}>Đăng xuất</h3>
         </div>
