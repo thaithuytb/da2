@@ -18,12 +18,15 @@ export class AuthAPI {
     return axiosClient.get(url) as unknown as ApiResponse;
   }
 
-  changePassword(dto:{
-      password: string,
-      newPassword: string,
+  UpdateInformation(dto:{
+      password?: string,
+      newPassword?: string,
+      fullName?:string,
+      phoneNumber?: string,
+      address?:string
   }) {
-    const url = `user/change-password`;
-    return axiosClient.post(url) as unknown as ApiResponse;
+    const url = `user/update-information`;
+    return axiosClient.patch(url, {dto:{...dto}}) as unknown as ApiResponse;
   }
 
   register(dto: {

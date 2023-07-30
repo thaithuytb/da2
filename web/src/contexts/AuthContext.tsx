@@ -24,7 +24,6 @@ const AuthProvider: React.FC<PropsAuthContext> = ({ children }) => {
     const [openMenu, setopenMenu] = useState<boolean>(false)
     const authAPI = new AuthAPI()
     const navigate = useNavigate()
-    console.log(user)
 
     useEffect(() => {
         (async () => {
@@ -32,7 +31,7 @@ const AuthProvider: React.FC<PropsAuthContext> = ({ children }) => {
                 try {
                     const res = await authAPI.autoLogin();
                     if (res.success) {
-                        const { user, token } = res.data;
+                        const { user } = res.data;
                         setUser(user);
                         setIslogin(true);
                         navigate("/home");

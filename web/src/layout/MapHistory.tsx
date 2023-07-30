@@ -160,7 +160,7 @@ const MapHistory = () => {
   return (
     <div>
       {
-        isClosed1 ? <img src="../alert.png" alt="" style={{ width: '30px' }} id="icon-close1" onClick={() => setIsClosed1(!isClosed1)} /> :
+        !isClosed1 ? <img src="../alert.png" alt="" style={{ width: '30px' }} id="icon-close1" onClick={() => setIsClosed1(!isClosed1)} /> :
           <CloseCircleOutlined id="icon-close1" onClick={() => setIsClosed1(!isClosed1)} />
       }
       <div id='if-history' style={{ display: !isClosed1 ? 'none' : 'block' }}>

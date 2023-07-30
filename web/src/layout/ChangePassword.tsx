@@ -4,7 +4,7 @@ import { AuthAPI } from '../api/user';
 
 const ChangePassword = () => {
     const onChangPassword = async (values: any) => {
-        const { email, password, newPassword, authenticationPassword } = values;
+        const { password, newPassword, authenticationPassword } = values;
         if (newPassword !== authenticationPassword) {
           console.log("mật khẩu mới nhập lại sai");
         } else {
@@ -14,7 +14,7 @@ const ChangePassword = () => {
           };
           const authApi = new AuthAPI();
           try {
-            const res = await authApi.changePassword(data);
+            const res = await authApi.UpdateInformation(data);
             if (res.success) {
                 console.log("thanh cong")
             }
@@ -35,10 +35,6 @@ const ChangePassword = () => {
           style={{ maxWidth: 700 }}
           onFinish={onChangPassword}
         >
-          <Form.Item label="Email" name="email">
-            <Input disabled />
-          </Form.Item>
-
           <Form.Item
             label="Mật khẩu"
             name="password"

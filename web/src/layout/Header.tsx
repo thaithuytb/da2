@@ -37,9 +37,9 @@ const Header = () => {
         <div className='header_menu' style={{ display: openMenu ? 'block' : 'none' }}>
           <h3>Admin</h3>
           <ul>
-            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/home'}>Map</Link></li>
-            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/history'}>Lịch sử</Link></li>
-            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/chart'}>Thống kê</Link></li>
+            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/home'}>Giám sát di chuyển</Link></li>
+            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/history'}>Lịch sử di chuyển</Link></li>
+            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/chart'}>Biểu đồ nhịp tim</Link></li>
             <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/information'}>Thông tin cá nhân</Link></li>
             <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/change-password'}>Đổi mật khẩu</Link></li>
           </ul>

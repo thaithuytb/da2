@@ -161,7 +161,7 @@ const MapReal = () => {
   return (
     <div>
       {
-        isClosed ? <img src="../alert.png" alt="" style={{ width: '30px' }} id="icon-close1" onClick={() => setIsClosed(!isClosed)} /> :
+        !isClosed ? <img src="../alert.png" alt="" style={{ width: '30px' }} id="icon-close1" onClick={() => setIsClosed(!isClosed)} /> :
           <CloseCircleOutlined id="icon-close1" onClick={() => setIsClosed(!isClosed)} />
       }
       <div id='if-length' style={{ display: !isClosed ? 'none' : 'block' }}>

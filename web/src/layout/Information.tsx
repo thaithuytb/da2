@@ -3,14 +3,15 @@ import '../css/map.css'
 import { AuthContext } from "../contexts/AuthContext";
 import { Button, DatePicker, Form, Input } from "antd";
 import dayjs from "dayjs";
+import { AuthAPI } from "../api/user";
 
 
 const Information = () => {
-    const authContext = useContext(AuthContext); 
-    const user = authContext?.user
-    console.log(user)
+  const authContext = useContext(AuthContext);
+  const user = authContext?.user
+  console.log(user)
 
-    const initialValues = {
+  const initialValues = {
     email: user.email,
     fullName: user.fullName,
     phoneNumber: user.phoneNumber,
@@ -21,62 +22,81 @@ const Information = () => {
     dateOfBrith: user.dateOfBrith ? dayjs(user.dateOfBrith, "DD-MM-YYYY") : null
   };
 
+  const updateInformation = async (values: any) => {
+    const {  fullName, phoneNumber, address } =
+      values;
+    const data = {
+      fullName: fullName,
+      phoneNumber: phoneNumber,
+      address: address,
+    };
+    const authApi = new AuthAPI();
+    try {
+      const res = await authApi.UpdateInformation(data);
+      if (res.success) {
+        console.log("Cập nhật thông tin cá nhân thành công !!!");
+      }
+    } catch (error: any) {
+      console.log(error)
+    }
+  };
+
   return (
     <div>
       THONG TIN CA NHAN
       <Form
-          name="personall_form"
-          labelCol={{ flex: '110px' }}
-          labelAlign="left"
-          labelWrap
-          wrapperCol={{ flex: 1 }}
-          colon={false}
-          style={{ maxWidth: 700 }}
-          // onFinish={updateInformation}
-          initialValues={initialValues}
-        >
-          <Form.Item label="Tên đầy đủ" name="fullName">
-            <Input />
-          </Form.Item>
+        name="personall_form"
+        labelCol={{ flex: '110px' }}
+        labelAlign="left"
+        labelWrap
+        wrapperCol={{ flex: 1 }}
+        colon={false}
+        style={{ maxWidth: 700 }}
+        onFinish={updateInformation}
+        initialValues={initialValues}
+      >
+        <Form.Item label="Tên đầy đủ" name="fullName">
+          <Input />
+        </Form.Item>
 
-          <Form.Item label="Email" name="email">
-            <Input />
-          </Form.Item>
+        <Form.Item label="Email" name="email">
+          <Input />
+        </Form.Item>
 
-          <Form.Item label="Số điện thoại" name="phoneNumber">
-            <Input />
-          </Form.Item>
+        <Form.Item label="Số điện thoại" name="phoneNumber">
+          <Input />
+        </Form.Item>
 
-          <Form.Item label="Địa chỉ" name="address">
-            <Input />
-          </Form.Item>
+        <Form.Item label="Địa chỉ" name="address">
+          <Input />
+        </Form.Item>
 
-          <Form.Item label="Ngày sinh" name="dateOfBrith">
-            <DatePicker
-              // defaultValue={dayjs(currentDate, dateFormat)}
-              inputReadOnly={true}
-              format={"DD-MM-YYYY"}
-            />
-          </Form.Item>
+        <Form.Item label="Ngày sinh" name="dateOfBrith">
+          <DatePicker
+            // defaultValue={dayjs(currentDate, dateFormat)}
+            inputReadOnly={true}
+            format={"DD-MM-YYYY"}
+          />
+        </Form.Item>
 
-          <Form.Item label="Ngày tạo tài khoản" name="dateCreateAccount">
-            <Input disabled />
-          </Form.Item>
+        <Form.Item label="Ngày tạo tài khoản" name="dateCreateAccount">
+          <Input disabled />
+        </Form.Item>
 
-          {/* <Form.Item name="gender" label="Giới tính">
+        {/* <Form.Item name="gender" label="Giới tính">
             <Radio.Group value={user.gender}>
               <Radio value="MALE">Nam</Radio>
               <Radio value="FEMALE">Nữ</Radio>
             </Radio.Group>
           </Form.Item> */}
 
-          <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Thay đổi thông tin
-            </Button>
-            <span style={{ padding: '0 1rem' }} />
-          </Form.Item>
-        </Form>
+        <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Thay đổi thông tin
+          </Button>
+          <span style={{ padding: '0 1rem' }} />
+        </Form.Item>
+      </Form>
     </div>
   )
 }
