@@ -78,7 +78,7 @@ export class CoordinateService {
   }
 
   async startData(dto: { deviceId: number; start: boolean }) {
-    this.publicMqttService.sendMessage('datn/thai/start', JSON.stringify(dto));
+    this.publicMqttService.sendMessage('datn/quan/start', JSON.stringify(dto));
     return true;
   }
 
@@ -90,7 +90,7 @@ export class CoordinateService {
     heartRate: number;
     period: number;
   }) {
-    this.publicMqttService.sendMessage('datn/thai/data', JSON.stringify(dto));
+    this.publicMqttService.sendMessage('datn/quan/data', JSON.stringify(dto));
     return true;
   }
 }

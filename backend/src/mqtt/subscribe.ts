@@ -11,8 +11,8 @@ export async function subscribeMqtt(socketGateway: SocketGateway) {
 
   client.on('connect', async function () {
     console.log('Connected to MQTT broker');
-    client.subscribe(`datn/thai/#`);
-    console.log('subscribe topic: ', `datn/thai/#`);
+    client.subscribe(`datn/quan/#`);
+    console.log('subscribe topic: ', `datn/quan/#`);
   });
 
   client.on('message', async function (topic, message) {
@@ -28,7 +28,7 @@ export async function subscribeMqtt(socketGateway: SocketGateway) {
       return;
     }
 
-    if (topic === 'datn/thai/start') {
+    if (topic === 'datn/quan/start') {
       //handle Logic
       if (parseMessage['start']) {
         if (typeof parseMessage['start'] !== 'number') {
@@ -52,7 +52,7 @@ export async function subscribeMqtt(socketGateway: SocketGateway) {
       return;
     }
 
-    if (topic === 'datn/thai/data') {
+    if (topic === 'datn/quan/data') {
       if (
         typeof parseMessage['lat'] !== 'number' ||
         typeof parseMessage['lon'] !== 'number' ||
