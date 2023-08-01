@@ -84,11 +84,11 @@ export class CoordinateService {
 
   async data(dto: {
     deviceId: number;
-    lat: number;
-    lon: number;
-    step: number;
-    heartRate: number;
-    period: number;
+    lat: string;
+    lon: string;
+    step: string;
+    heartRate: string;
+    period: string;
   }) {
     this.publicMqttService.sendMessage('datn/quan/data', JSON.stringify(dto));
     return true;

@@ -20,9 +20,9 @@ export async function subscribeMqtt(socketGateway: SocketGateway) {
     try {
       parseMessage = JSON.parse(message.toString() as unknown as string);
       //validate
-      if (typeof parseMessage['deviceId'] !== 'number') {
-        return console.log('ERROR: ParseInt deviceId');
-      }
+      // if (typeof parseMessage['deviceId'] !== 'number') {
+      //   return console.log('ERROR: ParseInt deviceId');
+      // }
     } catch (e) {
       console.log('ERROR: parse JSON');
       return;
@@ -53,43 +53,45 @@ export async function subscribeMqtt(socketGateway: SocketGateway) {
     }
 
     if (topic === 'datn/quan/data') {
-      if (
-        typeof parseMessage['lat'] !== 'number' ||
-        typeof parseMessage['lon'] !== 'number' ||
-        typeof parseMessage['step'] !== 'number' ||
-        typeof parseMessage['heartRate'] !== 'number' ||
-        typeof parseMessage['period'] !== 'number'
-      ) {
-        return console.log('ERROR: ParseInt start');
-      }
+      // if (
+      // typeof parseMessage['lat'] !== 'number' ||
+      // typeof parseMessage['lon'] !== 'number' ||
+      // typeof parseMessage['step'] !== 'number' ||
+      // typeof parseMessage['heartRate'] !== 'number' ||
+      // typeof parseMessage['period'] !== 'number'
+      // ) {
+      //   return console.log('ERROR: ParseInt start');
+      // }
       //handle logic here
+      console.log({ parseMessage });
       socketGateway.emitSocketToUser('1', 'data', {
         type: 'Feature',
         geometry: {
-          coordinates: [parseMessage['lat'], parseMessage['lon']],
+          coordinates: [+parseMessage['lat'], +parseMessage['lon']],
           type: 'Point',
         },
         properties: {
-          heartRate: parseMessage['heartRate'],
-          step: parseMessage['step'],
-          period: parseMessage['period'],
+          heartRate: +parseMessage['heartRate'],
+          step: +parseMessage['step'],
+          period: +parseMessage['period'],
         },
       });
       const history = await findHistoryFollowByDeviceId(
         prisma,
-        parseMessage['deviceId'],
+        +parseMessage['deviceId'],
       );
 
       await prisma.coordinate.create({
         data: {
-          lat: parseMessage['lat'],
-          lon: parseMessage['lon'],
-          step: parseMessage['step'],
-          heartRate: parseMessage['heartRate'],
-          period: parseMessage['period'],
+          lat: +parseMessage['lat'],
+          lon: +parseMessage['lon'],
+          step: +parseMessage['step'],
+          heartRate: +parseMessage['heartRate'],
+          period: +parseMessage['period'],
           historyFollowId: history.id,
         },
       });
+      console.log('complete !!!');
       return;
     }
   });

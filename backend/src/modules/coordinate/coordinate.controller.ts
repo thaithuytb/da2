@@ -28,11 +28,11 @@ export class CoordinateController {
     @Body('dto')
     dto: {
       deviceId: number;
-      lat: number;
-      lon: number;
-      step: number;
-      heartRate: number;
-      period: number;
+      lat: string;
+      lon: string;
+      step: string;
+      heartRate: string;
+      period: string;
     },
   ) {
     return this.coordinateService.data(dto);
