@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext, useEffect, useState } from 'react';
+import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { AuthAPI } from '../api/user';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,6 +9,14 @@ interface IAuthContext {
     setIslogin: (islogin: boolean) => void
     openMenu: any
     setopenMenu: any
+
+    isCoordinate: any, 
+    setIsCoordinate: any
+
+    isCenter: any, 
+    setIsCenter: any
+
+    
 }
 
 interface PropsAuthContext {
@@ -22,8 +30,13 @@ const AuthProvider: React.FC<PropsAuthContext> = ({ children }) => {
     const [user, setUser] = useState()
     const [islogin, setIslogin] = useState<boolean>(false)
     const [openMenu, setopenMenu] = useState<boolean>(false)
+    const [isCoordinate, setIsCoordinate] = useState<any>();
+    const [isCenter, setIsCenter] = useState<any>();
+
+
     const authAPI = new AuthAPI()
     const navigate = useNavigate()
+   
 
     useEffect(() => {
         (async () => {
@@ -50,7 +63,13 @@ const AuthProvider: React.FC<PropsAuthContext> = ({ children }) => {
         setUser,
         setIslogin,
         openMenu,
-        setopenMenu
+        setopenMenu,
+        isCoordinate,
+        setIsCoordinate,
+        isCenter, 
+        setIsCenter,
+        
+   
     }
     return (
         <AuthContext.Provider value={data}>

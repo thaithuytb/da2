@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import maplibregl, { LngLatLike, Map } from "maplibre-gl";
 import '../css/map.css'
 import { CoordinateAPI } from "../api/coordinate";
+import { AuthContext } from "../contexts/AuthContext";
 
 
 interface PropsMap {
@@ -23,7 +24,7 @@ const MapComponent: React.FC<PropsMap> = (
     findPath
   }
 ) => {
-
+  const {isCoordinate, setIsCoordinate} = useContext(AuthContext)!; 
 
   useEffect(() => {
     const map = new maplibregl.Map({
@@ -37,7 +38,7 @@ const MapComponent: React.FC<PropsMap> = (
       maxPitch: 85,
       antialias: true
     });
-
+    setIsCoordinate(map);
     if (dataCoordinates && findPath) {
       findPath(map)
     }
