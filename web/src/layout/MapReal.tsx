@@ -4,8 +4,10 @@ import '../css/map.css'
 import distance from '@turf/distance';
 import { point } from "@turf/helpers";
 import MapComponent from "../components/MapComponent";
-import { SocketContext } from "../contexts/SocketContext";
+
 import { CloseCircleOutlined } from '@ant-design/icons';
+import { AuthContext } from "../contexts/AuthContext";
+import { SocketContext } from "../contexts/SocketContext";
 
 // interface Data {
 //   created: string;
@@ -13,42 +15,21 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 // }
 
 const MapReal = () => {
-  const socketContext = useContext(SocketContext)
-  const socketClient = socketContext?.socketClient
 
-  const [dataReal, setDataReal] = useState<any[]>([])
+  
   // const [duration, setDuration] = useState<number | undefined>()
-  const [heartRates, setHeartRate] = useState<number | undefined>()
-  const [lengthStreet, setLengthStreet] = useState<string | undefined>()
-  const [legStreet, setLegStreet] = useState<string | undefined>()
 
   const [isClosed, setIsClosed] = useState(true);
 
-  useEffect(() => {
-    if (socketClient) {
-      socketClient.on("start", (data) => {
-        setDataReal([])
-      })
+  const {isCoordinate, setIsCoordinate} = useContext(AuthContext)!; 
+  const {isCenter, setIsCenter} = useContext(AuthContext)!;
+  
+  const {dataReal, setDataReal} = useContext(SocketContext)!;
+  const {heartRates, setHeartRate} = useContext(SocketContext)!;
+  const {lengthStreet, setLengthStreet} = useContext(SocketContext)!;
+  const {legStreet, setLegStreet} = useContext(SocketContext)!;
 
-      socketClient.on("end", (data) => {
-        setDataReal([])
-      })
-
-      socketClient.on("data", (data) => {
-        console.log(data);
-        setDataReal((pre) => [...pre, [...data.geometry.coordinates]])
-        setLegStreet(data.properties.step)
-        setHeartRate(data.properties.heartRate)
-        // setDuration(data.properties.duration)
-      })
-
-      return () => {
-        socketClient.off("start")
-        socketClient.off("end")
-        socketClient.off("data")
-      }
-    }
-  }, [socketClient])
+  
 
   function realTime(map: Map) {
     map.on("load", function () {
@@ -60,7 +41,9 @@ const MapReal = () => {
       if (!coordinates?.length) {
         return;
       }
+
       const start = coordinates[0];
+      setIsCenter(start);
       const end = coordinates[coordinates.length - 1]
       const startp = point(start);
       const finish = point(end);

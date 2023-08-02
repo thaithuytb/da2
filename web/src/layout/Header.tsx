@@ -7,6 +7,9 @@ import { AuthContext } from '../contexts/AuthContext';
 const Header = () => {
 
   const { openMenu, setopenMenu } = useContext(AuthContext)!;
+  const {isCoordinate, setIsCoordinate} = useContext(AuthContext)!; 
+  const {isCenter, setIsCenter} = useContext(AuthContext)!;
+
   const authContext = useContext(AuthContext)
   const setUser = authContext?.setUser
   const setIslogin = authContext?.setIslogin
@@ -19,6 +22,16 @@ const Header = () => {
     }
 
   }
+  
+  const openhome = () => {
+    setopenMenu(!openMenu);
+    if(isCenter){
+      isCoordinate.setCenter(isCenter);
+      console.log(2);
+      
+    }
+  };
+
   return (
     <div className="header">
       <div className="header_top">
@@ -37,7 +50,7 @@ const Header = () => {
         <div className='header_menu' style={{ display: openMenu ? 'block' : 'none' }}>
           <h3>Admin</h3>
           <ul>
-            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/home'}>Giám sát di chuyển</Link></li>
+            <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={openhome} ><Link to={'/home'}>Giám sát di chuyển</Link></li>
             <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/history'}>Lịch sử di chuyển</Link></li>
             <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/chart'}>Biểu đồ nhịp tim</Link></li>
             <li style={{ textAlign: "left", paddingLeft: 20 }} onClick={() => setopenMenu(!openMenu)} ><Link to={'/information'}>Thông tin cá nhân</Link></li>
