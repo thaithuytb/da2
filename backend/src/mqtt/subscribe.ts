@@ -37,7 +37,7 @@ export async function subscribeMqtt(socketGateway: SocketGateway) {
         //from deviceId find UserId but in this project default equals 1 =))
         await prisma.historyFollow.create({
           data: {
-            name: uuidv4(),
+            name: `device_1_test_` + uuidv4().slice(0, 3),
             device: {
               connect: {
                 id: parseMessage['deviceId'],
@@ -80,6 +80,9 @@ export async function subscribeMqtt(socketGateway: SocketGateway) {
         prisma,
         +parseMessage['deviceId'],
       );
+      if (!history) {
+        return console.log('History not found');
+      }
 
       await prisma.coordinate.create({
         data: {
