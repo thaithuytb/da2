@@ -60,8 +60,8 @@ export async function createCoordinates(prisma: PrismaClient) {
         lat: data[0],
         lon: data[1],
         period: 333,
-        step: index * 3,
-        heartRate: 115 + Math.floor(Math.random() * 10),
+        step: index * 7,
+        heartRate: 72 + Math.floor(Math.random() * 10),
         createdAt: dayjs()
           .add(index * 10, 's')
           .toISOString(),
@@ -133,8 +133,8 @@ export async function createCoordinates(prisma: PrismaClient) {
         lat: data[0],
         lon: data[1],
         period: 333,
-        step: index * 3,
-        heartRate: 115 + Math.floor(Math.random() * 10),
+        step: index * 7,
+        heartRate: 70 + Math.floor(Math.random() * 10),
         createdAt: dayjs()
           .add(index * 10, 's')
           .toISOString(),
@@ -216,8 +216,8 @@ export async function createCoordinates(prisma: PrismaClient) {
         lat: data[0],
         lon: data[1],
         period: 333,
-        step: index * 3,
-        heartRate: 115 + Math.floor(Math.random() * 10),
+        step: index * 7,
+        heartRate: 70 + Math.floor(Math.random() * 10),
         createdAt: dayjs()
           .add(index * 10, 's')
           .toISOString(),
@@ -277,8 +277,8 @@ export async function createCoordinates(prisma: PrismaClient) {
         lat: data[0],
         lon: data[1],
         period: 333,
-        step: index * 3,
-        heartRate: 115 + Math.floor(Math.random() * 10),
+        step: index * 7,
+        heartRate: 71 + Math.floor(Math.random() * 10),
         createdAt: dayjs()
           .add(index * 10, 's')
           .toISOString(),

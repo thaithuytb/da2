@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import maplibregl, { Map } from "maplibre-gl";
+import { Map } from "maplibre-gl";
 import "../css/map.css";
 import distance from "@turf/distance";
 import { point } from "@turf/helpers";
@@ -24,6 +24,7 @@ const MapHistory = () => {
 
   const [lengthStreet, setLengthStreet] = useState<string | undefined>();
   const [heartAverage, setHeartAverage] = useState<string | undefined>();
+  const [step, setStep] = useState<number | undefined>();
   const [data, setData] = useState<any>();
 
   const coordinateAPI = new CoordinateAPI();
@@ -36,6 +37,7 @@ const MapHistory = () => {
     (async () => {
       const response = await coordinateAPI.getCoordinates({ name: item.name });
       if (response.success) {
+        setStep(response.data.step);
         setDataCoordinates(response.data.dataCoordinates);
         setHeartRate(response.data.heartRate);
         setDuration(response.data.duration);
@@ -208,6 +210,7 @@ const MapHistory = () => {
         </div>
         <p id="length_history">Quãng đường di chuyển: {lengthStreet} m</p>
         <p id="time_history">Thời gian di chuyển: {duration} phút</p>
+        <p id="time_history">Số bước di chuyển: {step} bước</p>
         <div id="heart_history" onClick={() => clickNavigate()}>
           <div style={{ display: "flex" }}>
             <span>Nhịp tim trung bình: {heartAverage} nhịp/phút</span>
